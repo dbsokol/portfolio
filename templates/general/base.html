@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html style="height:100%;overscroll-behavior: none;">
+  
+  <!-- HEAD -->
+  <head>
+
+    <title>
+      {% if title %} {{title}} {% endif %}
+    </title>
+  
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    
+    <!-- favicon -->
+    <!--<link rel="icon" type="image/png" href="{% static 'images/favicon-32x32.png' %}" />-->
+
+    <!-- icons, fontawesome, datatables -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"></link>
+    
+    <!-- local styles -->
+    <!--<link type="text/css" rel='stylesheet' href="{% static 'general/css/drf_components.css' %}" />-->
+    <link type="text/css" rel="stylesheet" href="{% static 'general/css/base.css' %}" media="screen,projection" />
+    
+    <!-- jquery, datatables, lodash, chart.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+   
+    <!-- local scripts -->
+    <script> var csrf_token = '{{csrf_token}}' </script>
+    <script src="{% static 'general/js/base.js' %}"></script>
+    <script src="{% static 'general/js/tools.js' %}"></script>
+    <!--<script src="{% static 'general/js/drf_components.js' %}"></script>-->
+    
+    <!-- extra headers -->  
+    {% block extra_headers %}
+    {% endblock %}
+
+  </head>
+  
+  <!-- BODY -->
+  <body>
+    
+    <!-- navbar -->
+
+    <!-- content -->
+    <section id='{{title}}-section' style='margin-top:60px;' >
+      {% block content %}
+      {% endblock %}
+    </section>
+    
+    <!-- footers -->
+    <div class='footer-container'>
+      <div class='footer-copywrite'>
+        © danielbsokol.engineer - 2020
+      </div>
+    </div> 
+    
+  </body>
+
+</html>
