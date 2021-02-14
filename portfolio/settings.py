@@ -147,3 +147,12 @@ STATIC_URL = '/static/'
 #         'rest_framework.authentication.SessionAuthentication',
 #     ],
 # }
+
+# url: https://hinty.io/ivictbor/html-to-pdf-in-django/
+# if settings.PRODUCTION:
+#     # on production we have no X server, that needed for wkhtmltopdf, so we will emulate it and so we need to use custom path to wkhtmltopdf executable
+#     config = pdfkit.configuration(wkhtmltopdf=os.path.join(settings.BASE_DIR, 'wkhtmltopdf_xfaked.sh').encode())
+#     pdf = pdfkit.PDFKit(content, "string", options=options, configuration=config).to_pdf()
+# else:
+#     # on dev machine I use Windows so it is no need to emulate X sereve and redefine path
+#     pdf = pdfkit.PDFKit(content, "string", options=options).to_pdf()

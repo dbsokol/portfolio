@@ -1,4 +1,4 @@
-/* global $, Component, GET, moment, jsPDF, html2canvas */
+/* global $, Component, GET, POST, moment, jsPDF, html2canvas */
 
 
 class Card extends Component {
@@ -194,12 +194,13 @@ $(document).ready(function() {
   });
   $('#download-pdf').click(function() {
     
-    var doc = new jsPDF(); 
-    doc.fromHTML($('.pdf-content')[0], 15, 15, {
-      'width': 180,
-      // 'elementHandlers': elementHandler
+    POST({
+      url : 'download_pdf',
+      data : document.body.serializeWithStyles(),
+      success : function(response) {
+        console.log('success')
+      }
     });
-    doc.save("danielbsokol.engineer.pdf");
   
   });
 });

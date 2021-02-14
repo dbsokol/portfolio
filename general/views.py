@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 
 from rest_framework import viewsets
 
@@ -6,8 +6,24 @@ from general import serializers as general_serializers
 from general import models as general_models
 
 from pprint import pprint
+import weasyprint
+import json
 
 
+def DownloadPDF(request):
+    
+    htmlstring = json.loads(request.body.decode('utf-8'))
+    
+    html = weasyprint.HTML(string=htmlstring)
+    pdf = html.write_pdf()
+    
+    print(type(pdf))
+    
+    with open('/portfolio/temp.pdf', 'wb+') as f: f.write(pdf)
+    
+    return HttpResponse(pdf, content_type='application/pdf')
+    
+    
 
 def RenderIndex(request):
     
@@ -33,6 +49,10 @@ def RenderTest(request):
     
     return render(request, context['template_name'], context=context)
 
+
+
+    
+    
 
 
 ########################
