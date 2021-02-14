@@ -12,7 +12,9 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     
     <!-- favicon -->
-    <!--<link rel="icon" type="image/png" href="{% static 'images/favicon-32x32.png' %}" />-->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
 
     <!-- icons, fontawesome, datatables -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -20,20 +22,20 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"></link>
     
     <!-- local styles -->
-    <!--<link type="text/css" rel='stylesheet' href="{% static 'general/css/drf_components.css' %}" />-->
     <link type="text/css" rel="stylesheet" href="{% static 'general/css/base.css' %}" media="screen,projection" />
     
-    <!-- jquery, datatables, lodash, chart.js -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- jquery, moment, lodash, jspdf, htmltocanvas -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <!--<script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>-->
    
     <!-- local scripts -->
     <script> var csrf_token = '{{csrf_token}}' </script>
     <script src="{% static 'general/js/base.js' %}"></script>
     <script src="{% static 'general/js/tools.js' %}"></script>
-    <!--<script src="{% static 'general/js/drf_components.js' %}"></script>-->
     
     <!-- extra headers -->  
     {% block extra_headers %}
@@ -42,22 +44,22 @@
   </head>
   
   <!-- BODY -->
-  <body>
+  <body class='dark'>
     
     <!-- navbar -->
 
     <!-- content -->
-    <section id='{{title}}-section' style='margin-top:60px;' >
+    <section id='{{title}}-section' class='pdf-content dark' style='margin-top:60px;' >
       {% block content %}
       {% endblock %}
     </section>
     
     <!-- footers -->
-    <div class='footer-container'>
-      <div class='footer-copywrite'>
-        © danielbsokol.engineer - 2020
-      </div>
-    </div> 
+    <footer>
+      <span class='footer-tools' id='color-mode' state='dark'>light mode</span>
+      <span class='footer-tools' id='download-pdf'>download pdf</span>
+      <span class='footer-content'>© danielbsokol.engineer - 2019</span>
+    </footer>
     
   </body>
 

@@ -32,6 +32,13 @@ class BaseModel(models.Model):
 ## -- Models -- ##
 ##################
 
+class Contact(BaseModel):
+    
+    name = models.CharField(max_length=65)
+    value = models.CharField(max_length=65)
+
+
+
 class Education(BaseModel):
     
     institution = models.CharField(max_length=64)
@@ -70,4 +77,11 @@ class Project(BaseModel):
     
     name = models.CharField(max_length=64)
     url = models.URLField()
+    
+    
+
+class Skill(BaseModel):
+    
+    name = models.CharField(max_length=64)
+    start_date = models.DateField()
     

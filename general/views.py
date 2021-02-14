@@ -5,6 +5,22 @@ from rest_framework import viewsets
 from general import serializers as general_serializers
 from general import models as general_models
 
+from pprint import pprint
+
+
+
+def RenderIndex(request):
+    
+    context = {
+        'status' : 0,
+        'success' : True,
+        'template_name' : 'general/index.html',
+        'title' : 'Engineer',
+    }
+    
+    return render(request, context['template_name'], context=context)
+
+
 
 def RenderTest(request):
     
@@ -39,6 +55,8 @@ class BaseViewSet(viewsets.ModelViewSet):
             custom_exclude = json.loads(custom_exclude)
             queryset = queryset.exclude(**custom_exclude)
         
+        pprint(queryset)
+        
         return queryset
 
     http_method_names = ['get']
@@ -47,6 +65,13 @@ class BaseViewSet(viewsets.ModelViewSet):
 ####################
 ## -- ViewSets -- ##
 ####################
+
+class ContactViewSet(BaseViewSet):
+    
+    queryset = general_models.Contact.objects.all().order_by('-id')
+    serializer_class = general_serializers.ContactSerializer
+    
+    
 
 class EducationViewSet(BaseViewSet):
     
@@ -73,3 +98,10 @@ class ProjectViewSet(BaseViewSet):
     
     queryset = general_models.Project.objects.all().order_by('-created_at')
     serializer_class = general_serializers.ProjectSerializer
+
+
+
+class SkillViewSet(BaseViewSet):
+    
+    queryset = general_models.Skill.objects.all().order_by('start_date')
+    serializer_class = general_serializers.SkillSerializer

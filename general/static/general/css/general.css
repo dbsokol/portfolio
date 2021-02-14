@@ -1,0 +1,174 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300,600);
+
+* {
+  box-model: border-box;
+}
+.contact.dark{
+  color:var(--dark);
+}
+.contact.small-card{
+  padding:0;
+}
+.contact.small-card.dark{
+  background-color:var(--light);
+  color:var(--dark);
+}
+.contact.small-card.light{
+  background-color:var(--light);
+}
+.card{
+  display:grid;
+  padding:10px;
+  margin:10px;
+  border-radius:5px;
+}
+.card.dark{
+  background-color:var(--light-med);
+  color:var(--dark);
+}
+.card.light{
+  background-color:var(--light);
+  color:var(--dark);
+}
+.small-card{
+  display:grid;
+  padding:10px;
+  margin:10px;
+  border-radius:5px;
+}
+.small-card.dark{
+  background-color:var(--dark);
+  color:var(--light);
+}
+.small-card.light{
+  background-color:var(--white);
+  color:var(--dark);
+}
+.key {
+  float : left;
+}
+.val {
+  float: right;
+}
+.row{
+  padding:3px;
+}
+.contact.key {
+  display:none;
+}
+.long{
+  display: block
+}
+.short {
+  display: none;
+}
+resume, .two-col {
+  font-family: 'Raleway';
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+resume {
+  padding: 5%;
+}
+header {
+  padding: 0 3%;
+  border-right: 1px solid silver;
+  margin-right: 3%;
+  background-color:var(--light);
+  border-radius:5px;
+}
+.two-col section {
+  flex: 1;
+}
+#education{
+  margin-bottom:-10px;
+}
+h2 {
+  font-family: 'Raleway';
+  margin-top: 20px;
+  margin-bottom:0px;
+  font-weight: 300;
+  font-size: .9em;
+  letter-spacing: .5em;
+  font-weight: 600;
+  padding: 5px 10px;
+  color: var(--light);
+  background-color: var(--dark-med);
+}
+.two-col section:first-child h2 {
+  margin-right: 2%;
+}
+.two-col ol strong {
+  display: block;
+}
+
+
+@media only screen and (max-width: 768px) {
+  resume,
+  .two-col {
+    flex-direction: column;
+  }
+  header {
+    border-right: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .long{
+    display: none
+  }
+  .short {
+    display: block;
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  #education{
+    margin-bottom:0px;
+  } 
+  header {
+    margin-top: -60px;
+    margin-bottom: 10px;
+  }
+  .long{
+    display: none
+  }
+  .short {
+    display: block;
+  }
+  .two-col ul li {
+    display: inline;
+  }
+  .two-col ul li:after {
+    content: ","
+  }
+  .two-col ul li:last-child:after {
+    content: "."
+  }
+  .two-col ol li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .2em;
+  }
+  .two-col li {
+    font-size: .85em;
+  }
+  h2 {
+    background-color: transparent;
+    color: silver;
+    font-weight: 300;
+    font-size: 2em;
+    letter-spacing: 0;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  #download-pdf{
+    display:none;
+  }
+}

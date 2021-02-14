@@ -11,6 +11,13 @@ class BaseAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(models.Contact)
+class ContactAdmin(BaseAdmin): 
+    
+    list_display = BaseAdmin.list_display + ['name', 'value']
+
+
+
 @admin.register(models.Education)
 class EducationAdmin(BaseAdmin): 
     
@@ -38,6 +45,14 @@ class ResponsibilityAdmin(BaseAdmin):
 class ProjectAdmin(BaseAdmin): 
     
     list_display = BaseAdmin.list_display + ['name', 'url']
+    
+
+
+
+@admin.register(models.Skill)
+class SkillAdmin(BaseAdmin): 
+    
+    list_display = BaseAdmin.list_display + ['name', 'start_date']
     
     
 

@@ -18,6 +18,15 @@ class BaseSerializer(serializers.ModelSerializer):
 ## -- Serializers -- ##
 #######################
 
+class ContactSerializer(BaseSerializer):
+    
+    class Meta:
+        model = general_models.Contact
+        fields = BaseSerializer.Meta.fields + ['name', 'value']
+        read_only_fields = fields 
+    
+
+
 class EducationSerializer(BaseSerializer):
     
     class Meta:
@@ -52,6 +61,15 @@ class ProjectSerializer(BaseSerializer):
     class Meta:
         model = general_models.Project
         fields = BaseSerializer.Meta.fields + ['name', 'url']
-        read_only_fields = fields        
+        read_only_fields = fields       
+
+
+
+class SkillSerializer(BaseSerializer):
+    
+    class Meta:
+        model = general_models.Skill
+        fields = BaseSerializer.Meta.fields + ['name', 'start_date']
+        read_only_fields = fields    
 
 
