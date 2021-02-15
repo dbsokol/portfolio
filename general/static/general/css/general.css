@@ -1,5 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,300,600);
 
+
+
+  /* -------------- */
+ /* general styles */
+/* -------------- */
+
 * {
   box-model: border-box;
 }
@@ -26,9 +32,17 @@
   background-color:var(--light-med);
   color:var(--dark);
 }
+.card.dark.animations-on:hover{
+  cursor:pointer;
+  background-color:var(--light);
+}
 .card.light{
   background-color:var(--light);
   color:var(--dark);
+}
+.card.light.animations-on:hover{
+  cursor:pointer;
+  background-color:var(--light-med);
 }
 .small-card{
   display:grid;
@@ -102,20 +116,23 @@ h2 {
 .two-col ol strong {
   display: block;
 }
-
-
-@media only screen and (max-width: 768px) {
-  resume,
-  .two-col {
-    flex-direction: column;
-  }
-  header {
-    border-right: none;
-    margin: 0;
-    padding: 0;
-  }
+.json{
+  display:none;
+}
+.education.json{
+  font-size:small;
+}
+.api-link{
+  display:none;
+  font-weight: inherit;
+  font-size: 14px;
+  letter-spacing: inherit;
+  font-weight: inherit;
 }
 
+  /* ------------- */
+ /* tablet styles */
+/* ------------- */
 
 @media only screen and (max-width: 1024px) {
   .long{
@@ -127,7 +144,19 @@ h2 {
 }
 
 
+  /* ------------ */
+ /* phone styles */
+/* ------------ */
+
 @media only screen and (max-width: 768px) {
+  resume, .two-col {
+    flex-direction: column;
+  }
+  header {
+    border-right: none;
+    margin: 0;
+    padding: 0;
+  }
   #education{
     margin-bottom:0px;
   } 
@@ -168,7 +197,69 @@ h2 {
     margin-top: 0;
     margin-bottom: 0;
   }
-  #download-pdf{
+  #download-pdf, #toggle-animations{
     display:none;
   }
 }
+
+  /* ------------ */
+ /* print styles */
+/* ------------ */
+
+@media print {
+  *{
+    font-size:12px;
+    background-color:white;
+    color:black;
+  }
+  header{
+    padding:0;
+    margin:0;
+    padding-right:10px;
+  }
+  resume{
+    position: absolute;
+    top: 0;
+    margin: 0;
+    padding: 10px;
+  }
+  h2{
+    background-color:#b5b2c2;
+    margin-bottom:5px;
+  }
+  .experiences {
+    background-color:#dadff7;
+  }
+  .education, .projects, .skills{
+    padding:3px;
+    /*background-color:#dadff7;*/
+  }
+  footer{
+    display:none;
+  }
+  .card, .small-card{
+    margin:0;
+    padding:0;
+    padding-left:5px;
+    padding-right:5px;
+    margin-top:10px;
+    margin-bottom:2px;
+  }
+  .icn{
+    display:none;
+  }
+  .long {
+    display: none;
+  }
+  .short{
+    display:block;
+  }
+  #education{
+    margin-bottom:10px;
+  }
+  a{
+    text-decoration:none;
+    color:darkblue;
+  }
+}
+

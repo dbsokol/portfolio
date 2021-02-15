@@ -4,7 +4,7 @@
 class Card extends Component {
   constructor(props) {
     super(props);
-    this.attrs.card = $('<div>', {class : this.props.body + ' card dark'});
+    this.attrs.card = $('<div>', {class : this.props.body + ' card dark animations-on'});
     this.render();
   }
   render() {
@@ -44,12 +44,14 @@ class ExperienceCard extends Card {
         body : 'responsibility',
         data : responsibility,
         keys : ['details'],
+        experience_id : this.props.data.id,
       });
       this.attrs.responsibilties.push(responsibility.attrs.card);
       responsibility.attrs.card.insertAfter(this.attrs.card);
     }
   }
   decorate() {
+    var card = this;
     var data = this.props.data;
     var cls = this.props.body;
     var row1 = $('<div>', {class : cls + ' row'}).appendTo(this.attrs.card);
@@ -59,6 +61,22 @@ class ExperienceCard extends Card {
     $('<div>', {class : cls + ' key', text:data.title + ' at ' + data.institution}).appendTo(row1);
     $('<div>', {class : cls + ' val', text:start_date + ' to ' + end_date}).appendTo(row1);
     $('<div>', {class : cls + ' key', text:'Company Mission: ' + data.mission}).appendTo(row2);
+    var json_data = $.extend(true, {}, data);
+    for (var responsibility of json_data.responsibilties) {
+      responsibility.details = responsibility.details.slice(0,30) + '... <truncated>';
+    }
+    json_data = JSON.stringify(json_data, null, 2);
+    this.attrs.jsn = $('<pre>', {class : cls + ' json', text:json_data}).appendTo(this.attrs.card);
+    this.attrs.card.mouseleave(function(){
+      card.attrs.jsn.slideUp();
+      $('.resp-exp-' + card.props.data.id).show();
+    });
+    this.attrs.card.click(function(){
+      if ($(window).width() <= 768) return;
+      if ($('#toggle-animations').attr('state') == 'off') return;
+      card.attrs.jsn.slideDown();
+      $('.resp-exp-' + card.props.data.id).hide();
+    });
   }
 }
 
@@ -71,6 +89,7 @@ class ResponsibilityCard extends SmallCard {
     var detail = $('<div>', {class: cls +' key'}).appendTo(row);
     $('<i>', {class: cls + ' key icn material-icons', text:'subdirectory_arrow_right'}).appendTo(detail);
     detail.append(data.details);
+    this.attrs.card.addClass('resp-exp-' + this.props.experience_id);
   }
 }
 
@@ -82,6 +101,7 @@ class EducationCard extends Card {
     this.attrs.card.appendTo(section);
   }
   decorate() {
+    var card = this;
     var data = this.props.data;
     var cls = this.props.body;
     var short_institution = data.institution.replace('University', 'Unv.').split('C')[0];
@@ -92,41 +112,92 @@ class EducationCard extends Card {
     $('<div>', {class : cls + ' key short', text:short_institution}).appendTo(row1);
     $('<div>', {class : cls + ' val', text:grad_date.format('MMMM, YYYY')}).appendTo(row1);
     $('<div>', {class : cls + ' key', text:data.degree + ' in ' + data.major}).appendTo(row2);
+    this.attrs.jsn = $('<pre>', {class : cls + ' json', text:JSON.stringify(data, undefined, 2)}).appendTo(this.attrs.card);
+    this.attrs.card.mouseleave(function(){
+      card.attrs.jsn.slideUp();
+    });
+    this.attrs.card.click(function(){
+      if ($(window).width() <= 768) return;
+      if ($('#toggle-animations').attr('state') == 'off') return;
+      card.attrs.jsn.slideDown();
+    });
   }
 }
 
 
 class ProjectCard extends Card {
   decorate() {
+    var card = this;
     var data = this.props.data;
     var cls = this.props.body;
-    var row = $('<div>', {class : cls + ' row'}).appendTo(this.attrs.card);
     var url = $('<a>', {text:data.url.split('/')[2], href:data.url, target:'_blank'});
-    $('<div>', {class : cls + ' key', text:data.name}).appendTo(row);
-    $('<div>', {class : cls + ' val'}).appendTo(row).append(url);
+    this.attrs.row = $('<div>', {class : cls + ' row'}).appendTo(this.attrs.card);
+    this.attrs.key = $('<div>', {class : cls + ' key', text:data.name}).appendTo(this.attrs.row);
+    this.attrs.val = $('<div>', {class : cls + ' val'}).appendTo(this.attrs.row).append(url);
+    this.attrs.jsn = $('<pre>', {class : cls + ' json', text:JSON.stringify(data, undefined, 2)}).appendTo(this.attrs.card);
+    this.attrs.card.mouseleave(function(){
+      card.attrs.jsn.slideUp();
+    });
+    this.attrs.card.click(function(){
+      if ($(window).width() <= 768) return;
+      if ($('#toggle-animations').attr('state') == 'off') return;
+      card.attrs.jsn.slideDown();
+    });
   }
 }
 
 
 class SkillCard extends Card {
   decorate() {
+    var card = this;
     var data = this.props.data;
     var cls = this.props.body;
-    var row = $('<div>', {class : cls + ' row'}).appendTo(this.attrs.card);
     var end_date = moment(new Date());
     var str_date = moment(new Date(data.start_date));
     var diff = moment.duration(end_date.diff(str_date));
     var date = diff.years() + ' years' + (diff.months() ? ' ' + diff.months() + ' months' : '');
-    $('<div>', {class : cls + ' key', text:data.name}).appendTo(row);
-    $('<div>', {class : cls + ' val', text:date}).appendTo(row);
-    // row.on('mouseover', function(){
-    //   row.html($('<div>', {class : cls + ' json', text:data}));
-    // });
+    this.attrs.row = $('<div>', {class : cls + ' row'}).appendTo(this.attrs.card);
+    this.attrs.key = $('<div>', {class : cls + ' key', text:data.name}).appendTo(this.attrs.row);
+    this.attrs.val = $('<div>', {class : cls + ' val', text:date}).appendTo(this.attrs.row);
+    this.attrs.jsn = $('<pre>', {class : cls + ' json', text:JSON.stringify(data, undefined, 2)}).appendTo(this.attrs.card);
+    this.attrs.card.mouseleave(function(){
+      card.attrs.jsn.slideUp();
+    });
+    this.attrs.card.click(function(){
+      if ($(window).width() <= 768) return;
+      if ($('#toggle-animations').attr('state') == 'off') return;
+      card.attrs.jsn.slideDown();
+    });
+  }
+}
+
+
+class TitleCard extends Component {
+  constructor(props) {
+    super(props);
+    var card = this;
+    this.attrs.title = $('.title.' + this.props.body);
+    this.attrs.link = $('.api-link.' + this.props.body);
+    this.attrs.link.height(this.attrs.title.height());
+    this.attrs.title.mouseenter(function(){
+      if ($(window).width() <= 768) return;
+      if ($('#toggle-animations').attr('state') == 'off') return;
+      card.attrs.title.hide();
+      card.attrs.link.show();
+    });
+    this.attrs.link.mouseleave(function(){
+      card.attrs.title.show();
+      card.attrs.link.hide();
+    });
   }
 }
 
 
 $(document).ready(function() {
+  new TitleCard({body:'experiences'});
+  new TitleCard({body:'education'});
+  new TitleCard({body:'projects'});
+  new TitleCard({body:'skills'});
   GET({
     url : 'api/contact',
     success : function(response) {
@@ -193,15 +264,21 @@ $(document).ready(function() {
     }
   });
   $('#download-pdf').click(function() {
-    
-    POST({
-      url : 'download_pdf',
-      data : document.body.serializeWithStyles(),
-      success : function(response) {
-        console.log('success')
-      }
-    });
-  
+    window.print();
+  });
+  $('#toggle-animations').click(function() {
+    var state = $(this).attr('state');
+    if (state=='on') {
+      $(this).attr('state', 'off');
+      $(this).text('animations off');
+      $(".card").addClass('animations-off');
+      $(".card").removeClass('animations-on');
+    } else {
+      $(this).attr('state', 'on');
+      $(this).text('animations on');
+      $(".card").addClass('animations-on');
+      $(".card").removeClass('animations-off');
+    }
   });
 });
 

@@ -10,7 +10,7 @@ from general import models as general_models
 class BaseSerializer(serializers.ModelSerializer):
     
     class Meta:
-        fields = ['id', 'created_at', 'last_updated_at']
+        fields = ['id']#, 'created_at', 'last_updated_at']
 
 
 
