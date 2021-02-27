@@ -23,6 +23,7 @@
     
     <!-- local styles -->
     <link type="text/css" rel="stylesheet" href="{% static 'general/css/base.css' %}" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="{% static 'general/css/loader.css' %}" />
     
     <!-- jquery, moment, lodash, jspdf, htmltocanvas -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -49,16 +50,16 @@
     <!-- navbar -->
 
     <!-- content -->
-    <section id='{{title}}-section' class='pdf-content dark' style='margin-top:60px;' >
+    <section id='{{title}}-section' class='pdf-content dark'>
       {% block content %}
       {% endblock %}
     </section>
     
     <!-- footers -->
-    <footer>
+    <footer style='display:none'>
       <span class='footer-tools' id='color-mode' state='dark'>light mode</span>
-      <span class='footer-tools' id='download-pdf'>download pdf</span>
-      <span class='footer-tools' id='toggle-animations' state='on'>animations on</span>
+      <!--<span class='footer-tools' id='download-pdf'>download pdf</span>-->
+      <span class='footer-tools' id='toggle-animations' state='on'>animations off</span>
       <span class='footer-content'>© danielbsokol.engineer - 2019</span>
     </footer>
     

@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 
 from rest_framework import viewsets
 
@@ -51,6 +51,7 @@ def RenderTest(request):
 
 
 
+def Redirect404(request, exception): return redirect('/')
     
     
 
@@ -74,8 +75,6 @@ class BaseViewSet(viewsets.ModelViewSet):
         if custom_exclude: 
             custom_exclude = json.loads(custom_exclude)
             queryset = queryset.exclude(**custom_exclude)
-        
-        pprint(queryset)
         
         return queryset
 

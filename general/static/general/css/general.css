@@ -118,6 +118,7 @@ h2 {
 }
 .json{
   display:none;
+  font-size:small;
 }
 .education.json{
   font-size:small;
@@ -125,7 +126,7 @@ h2 {
 .api-link{
   display:none;
   font-weight: inherit;
-  font-size: 14px;
+  font-size: .9em;
   letter-spacing: inherit;
   font-weight: inherit;
 }
@@ -224,7 +225,7 @@ h2 {
     padding: 10px;
   }
   h2{
-    background-color:#b5b2c2;
+    background-color:#b5b2c2!important;
     margin-bottom:5px;
   }
   .experiences {

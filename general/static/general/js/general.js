@@ -4,7 +4,7 @@
 class Card extends Component {
   constructor(props) {
     super(props);
-    this.attrs.card = $('<div>', {class : this.props.body + ' card dark animations-on'});
+    this.attrs.card = $('<div>', {class : this.props.body + ' card dark animations-' + ($(window).width() > 768 ? 'on' : 'off')});
     this.render();
   }
   render() {
@@ -178,17 +178,6 @@ class TitleCard extends Component {
     var card = this;
     this.attrs.title = $('.title.' + this.props.body);
     this.attrs.link = $('.api-link.' + this.props.body);
-    this.attrs.link.height(this.attrs.title.height());
-    this.attrs.title.mouseenter(function(){
-      if ($(window).width() <= 768) return;
-      if ($('#toggle-animations').attr('state') == 'off') return;
-      card.attrs.title.hide();
-      card.attrs.link.show();
-    });
-    this.attrs.link.mouseleave(function(){
-      card.attrs.title.show();
-      card.attrs.link.hide();
-    });
   }
 }
 
@@ -270,15 +259,35 @@ $(document).ready(function() {
     var state = $(this).attr('state');
     if (state=='on') {
       $(this).attr('state', 'off');
-      $(this).text('animations off');
+      $(this).text('animations on');
       $(".card").addClass('animations-off');
       $(".card").removeClass('animations-on');
     } else {
       $(this).attr('state', 'on');
-      $(this).text('animations on');
+      $(this).text('animations off');
       $(".card").addClass('animations-on');
       $(".card").removeClass('animations-off');
     }
+  });
+  $('.title').mouseenter(function(){
+    if ($(window).width() <= 768) return;
+    if ($('#toggle-animations').attr('state') == 'off') return;
+    var title = $(this);
+    var cls = $(this).attr('class').split(' ')[0];
+    var link = $('.' + cls + '.api-link');
+    title.hide();
+    link.show();
+  });
+  $('.api-link').mouseleave(function(){
+    var link = $(this);
+    var cls = $(this).attr('class').split(' ')[0];
+    var title = $('.' + cls + '.title');
+    title.show();
+    link.hide();
+  });
+  $(document).mouseleave(function(){
+    $('.title').show();
+    $('.api-link').hide();
   });
 });
 
