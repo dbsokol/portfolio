@@ -6,7 +6,6 @@ from general import serializers as general_serializers
 from general import models as general_models
 
 from pprint import pprint
-import weasyprint
 import json
 
 
