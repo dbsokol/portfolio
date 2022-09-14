@@ -15,12 +15,8 @@ router.register(r'skills', views.SkillViewSet)
 
 urlpatterns = [
     
-    # download:
-    path('download_pdf', views.DownloadPDF, name='download_pdf'),
-    
     # templates:
     path('', views.RenderIndex, name='home'),
-    path('test', views.RenderTest, name='test'),
     
     # api:
     path('api/', include(router.urls))

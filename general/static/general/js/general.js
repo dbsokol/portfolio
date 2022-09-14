@@ -190,7 +190,7 @@ $(document).ready(function() {
   GET({
     url : 'api/contact',
     success : function(response) {
-      for (var object of response) new ContactCard({
+      for (var object of response.results) new ContactCard({
         body : 'contact',
         data : object,
         keys : ['name', 'value']
@@ -200,7 +200,7 @@ $(document).ready(function() {
   GET({
     url : 'api/experiences',
     success : function(response) {
-      for (var object of response) new ExperienceCard({
+      for (var object of response.results) new ExperienceCard({
         body : 'experiences',
         data : object,
         keys : ['institution', 'title', 'mission', 'start_date', 'end_date'],
@@ -210,7 +210,7 @@ $(document).ready(function() {
   GET({
     url : 'api/education',
     success : function(response) {
-      for (var object of response) new EducationCard({
+      for (var object of response.results) new EducationCard({
         body : 'education',
         data : object,
         keys : ['institution', 'degree', 'major', 'start_date', 'end_date'],
@@ -220,7 +220,7 @@ $(document).ready(function() {
   GET({
     url : 'api/projects',
     success : function(response) {
-      for (var object of response) new ProjectCard({
+      for (var object of response.results) new ProjectCard({
         body : 'projects',
         data : object,
         keys : ['name', 'url'],
@@ -230,7 +230,7 @@ $(document).ready(function() {
   GET({
     url : 'api/skills',
     success : function(response) {
-      for (var object of response) new SkillCard({
+      for (var object of response.results) new SkillCard({
         body : 'skills',
         data : object,
         keys : ['name', 'start_date'],

@@ -1,28 +1,11 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 
+from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
 
 from general import serializers as general_serializers
 from general import models as general_models
 
-from pprint import pprint
-import json
-
-
-def DownloadPDF(request):
-    
-    htmlstring = json.loads(request.body.decode('utf-8'))
-    
-    html = weasyprint.HTML(string=htmlstring)
-    pdf = html.write_pdf()
-    
-    print(type(pdf))
-    
-    with open('/portfolio/temp.pdf', 'wb+') as f: f.write(pdf)
-    
-    return HttpResponse(pdf, content_type='application/pdf')
-    
-    
 
 def RenderIndex(request):
     
@@ -36,20 +19,6 @@ def RenderIndex(request):
     return render(request, context['template_name'], context=context)
 
 
-
-def RenderTest(request):
-    
-    context = {
-        'status' : 0,
-        'success' : True,
-        'template_name' : 'general/test.html',
-        'title' : 'Test',
-    }
-    
-    return render(request, context['template_name'], context=context)
-
-
-
 def Redirect404(request, exception): return redirect('/')
     
     
@@ -58,26 +27,17 @@ def Redirect404(request, exception): return redirect('/')
 ########################
 ## -- Base ViewSet -- ##
 ########################
-    
+
+class BasePagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'size'
+
+
+
 class BaseViewSet(viewsets.ModelViewSet):
     
-    def get_queryset(self):
-        
-        queryset = self.queryset
-        custom_filter = self.request.query_params.get('filter')
-        custom_exclude = self.request.query_params.get('exclude')
-    
-        if custom_filter: 
-            custom_filter = json.loads(custom_filter)
-            queryset = queryset.filter(**custom_filter)
-        
-        if custom_exclude: 
-            custom_exclude = json.loads(custom_exclude)
-            queryset = queryset.exclude(**custom_exclude)
-        
-        return queryset
-
     http_method_names = ['get']
+    pagination_class = BasePagination
 
 
 ####################
@@ -123,3 +83,9 @@ class SkillViewSet(BaseViewSet):
     
     queryset = general_models.Skill.objects.all().order_by('start_date')
     serializer_class = general_serializers.SkillSerializer
+
+    def get_queryset(self):
+
+        print(self.request.GET)
+
+        return self.queryset
