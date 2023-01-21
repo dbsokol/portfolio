@@ -14,7 +14,7 @@ class BaseAdmin(admin.ModelAdmin):
 @admin.register(models.Contact)
 class ContactAdmin(BaseAdmin): 
     
-    list_display = BaseAdmin.list_display + ['name', 'value']
+    list_display = BaseAdmin.list_display + ['name', 'value', 'url']
 
 
 

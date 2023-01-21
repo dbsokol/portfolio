@@ -22,7 +22,7 @@ class ContactSerializer(BaseSerializer):
     
     class Meta:
         model = general_models.Contact
-        fields = BaseSerializer.Meta.fields + ['name', 'value']
+        fields = BaseSerializer.Meta.fields + ['name', 'value', 'url']
         read_only_fields = fields 
     
 

@@ -36,6 +36,7 @@ class Contact(BaseModel):
     
     name = models.CharField(max_length=65)
     value = models.CharField(max_length=65)
+    url = models.URLField(blank=True, null=True)
 
 
 

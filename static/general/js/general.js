@@ -29,7 +29,28 @@ class ContactCard extends SmallCard {
     var cls = this.props.body;
     var row = $('<div>', {class: cls + ' row'}).appendTo(this.attrs.card);
     var key = $('<div>', {class: cls + ' key', text: this.props.data.name +': '}).appendTo(row);
-    var val = $('<div>', {class: cls + ' val', text: this.props.data.value}).appendTo(row);
+    if (!this.props.data.url) var val = $('<div>', {class: cls + ' val', text: this.props.data.value}).appendTo(row);
+    else {
+      var val = $('<div>', {class: cls + ' val contact-link'}).appendTo(row);
+      var imgWrap = $('<div>', {class: 'img-wrap'}).appendTo(val);
+      if (this.props.data.name == 'github') {
+        var icon = $('<img>', {
+          class: 'link-img',
+          src: 'static/images/github-mark.png',
+        }).appendTo(imgWrap);
+      }
+      else if (this.props.data.name == 'stackoverflow') {
+        var icon = $('<img>', {
+          class: 'link-img',
+          src: 'static/images/stackoverflow-mark.png',
+        }).appendTo(imgWrap);
+      }
+      var url = $('<a>', {
+        text: this.props.data.value, 
+        href: this.props.data.url, 
+        target:'_blank',
+      }).appendTo(val);
+   }
   }
 }
 
@@ -190,7 +211,7 @@ $(document).ready(function() {
   GET({
     url : 'api/contact',
     success : function(response) {
-      for (var object of response.results) new ContactCard({
+      for (var object of response.results.reverse()) new ContactCard({
         body : 'contact',
         data : object,
         keys : ['name', 'value']

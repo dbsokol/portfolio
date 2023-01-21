@@ -162,7 +162,7 @@ h2 {
     margin-bottom:0px;
   } 
   header {
-    margin-top: -60px;
+    margin-top: -20px;
     margin-bottom: 10px;
   }
   .long{
@@ -264,3 +264,15 @@ h2 {
   }
 }
 
+.link-img{
+  height: 100%;
+  margin-right: 3px;
+}
+
+.contact-link{
+  display: flex;
+}
+
+.img-wrap{
+  height: 1.2em;
+}
