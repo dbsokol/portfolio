@@ -193,6 +193,31 @@ class SkillCard extends Card {
 }
 
 
+class PublicationCard extends Card {
+  decorate() {
+    var card = this;
+    var data = this.props.data;
+    var cls = this.props.body;
+    var short_name = data.name.replace(' using Machine Learning', '').replace('Aortic Stenosis', 'A.S.').replace('Automated', 'Auto');
+    var published_date = moment(new Date(data.published_date));
+    var row1 = $('<div>', {class : cls + ' row'}).appendTo(this.attrs.card);
+    var row2 = $('<div>', {class : cls + ' row'}).appendTo(this.attrs.card);
+    $('<a>', {class: cls + ' key long', text: data.name, href: data.url, target: '_blank'}).appendTo(row1);
+    $('<a>', {class: cls + ' key short', text: short_name, href: data.url, target: '_blank'}).appendTo(row1);
+    $('<div>', {class : cls + ' val', text:published_date.format('MMMM, YYYY')}).appendTo(row1);
+    this.attrs.jsn = $('<pre>', {class : cls + ' json', text:JSON.stringify(data, undefined, 2)}).appendTo(this.attrs.card);
+    this.attrs.card.mouseleave(function(){
+      card.attrs.jsn.slideUp();
+    });
+    this.attrs.card.click(function(){
+      if ($(window).width() <= 768) return;
+      if ($('#toggle-animations').attr('state') == 'off') return;
+      card.attrs.jsn.slideDown();
+    });
+  }
+}
+
+
 class TitleCard extends Component {
   constructor(props) {
     super(props);
@@ -255,6 +280,16 @@ $(document).ready(function() {
         body : 'skills',
         data : object,
         keys : ['name', 'start_date'],
+      });
+    }
+  });
+  GET({
+    url : 'api/publications',
+    success : function(response) {
+      for (var object of response.results) new PublicationCard({
+        body : 'publications',
+        data : object,
+        keys : ['name', 'url', 'published_date'],
       });
     }
   });
