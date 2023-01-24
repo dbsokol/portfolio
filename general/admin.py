@@ -54,6 +54,13 @@ class SkillAdmin(BaseAdmin):
     
     list_display = BaseAdmin.list_display + ['name', 'start_date']
     
+
+
+
+@admin.register(models.Publication)
+class PublicationAdmin(BaseAdmin): 
+    
+    list_display = BaseAdmin.list_display + ['name', 'url', 'published_date']
     
 
 

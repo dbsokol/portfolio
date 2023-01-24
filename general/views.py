@@ -84,8 +84,9 @@ class SkillViewSet(BaseViewSet):
     queryset = general_models.Skill.objects.all().order_by('start_date')
     serializer_class = general_serializers.SkillSerializer
 
-    def get_queryset(self):
 
-        print(self.request.GET)
 
-        return self.queryset
+class PublicationViewSet(BaseViewSet):
+    
+    queryset = general_models.Publication.objects.all().order_by('published_date')
+    serializer_class = general_serializers.PublicationSerializer

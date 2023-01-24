@@ -12,6 +12,7 @@ router.register(r'experiences', views.ExperienceViewSet)
 router.register(r'responsibilties', views.ResponsibilityViewSet)
 router.register(r'projects', views.ProjectViewSet)
 router.register(r'skills', views.SkillViewSet)
+router.register(r'publications', views.PublicationViewSet)
 
 urlpatterns = [
     

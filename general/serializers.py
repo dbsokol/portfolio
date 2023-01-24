@@ -73,3 +73,12 @@ class SkillSerializer(BaseSerializer):
         read_only_fields = fields    
 
 
+
+class PublicationSerializer(BaseSerializer):
+    
+    class Meta:
+        model = general_models.Publication
+        fields = BaseSerializer.Meta.fields + ['name', 'url', 'published_date']
+        read_only_fields = fields   
+
+

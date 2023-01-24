@@ -85,4 +85,12 @@ class Skill(BaseModel):
     
     name = models.CharField(max_length=64)
     start_date = models.DateField()
+
+
+
+class Publication(BaseModel):
     
+    name = models.CharField(max_length=64)
+    url = models.URLField()
+    published_date = models.DateField()
+
