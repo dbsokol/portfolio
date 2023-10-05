@@ -32,7 +32,7 @@ function GET(props) {
     complete:function(response) {
       if (props.verbose_level>1) console_log_response(props.url, response);
       last_response = response;
-    }
+    },
   });
   
 }
