@@ -12,7 +12,8 @@ class BaseModel(models.Model):
     ''' Extension of base model class '''
 
     created_at = models.DateTimeField(editable=False, default=django_timezone.now)
-    last_updated_at = models.DateTimeField(editable=False, default=django_timezone.now)
+    updated_at = models.DateTimeField(editable=False, default=django_timezone.now)
+    is_deleted = models.BooleanField(default=False)
     
     def save(self, *args, **kwargs):
         
@@ -24,7 +25,8 @@ class BaseModel(models.Model):
     
         super(BaseModel, self).save(*args, **kwargs)
 
-    class Meta: abstract = True
+    class Meta: 
+        abstract = True
     
 
 
@@ -39,7 +41,6 @@ class Contact(BaseModel):
     url = models.URLField(blank=True, null=True)
 
 
-
 class Education(BaseModel):
     
     institution = models.CharField(max_length=64)
@@ -48,44 +49,40 @@ class Education(BaseModel):
     start_date = models.DateField()
     end_date = models.DateField()
     
-    class Meta: verbose_name_plural = 'Education'
+    class Meta: 
+        verbose_name_plural = 'Education'
     
     
-
 class Experience(BaseModel):
     
     institution = models.CharField(max_length=64)
     title = models.CharField(max_length=64)
-    mission = models.CharField(max_length=320)
+    mission = models.CharField(max_length=320, null=True, blank=True)
     start_date = models.DateField()
     end_date = models.DateField(null=True, blank=True)
     
     def __str__(self): return self.institution
-    
-    
+        
 
 class Responsibility(BaseModel):
     
     experience = models.ForeignKey('Experience', on_delete=models.CASCADE, related_name='responsibilties')
     details = models.CharField(max_length=320)
 
-
-    class Meta: verbose_name_plural = 'Responsibilities'
+    class Meta: 
+        verbose_name_plural = 'Responsibilities'
     
-
 
 class Project(BaseModel):
     
     name = models.CharField(max_length=64)
     url = models.URLField()
-    
-    
+        
 
 class Skill(BaseModel):
     
     name = models.CharField(max_length=64)
     start_date = models.DateField()
-
 
 
 class Publication(BaseModel):

@@ -40,7 +40,7 @@ class ResponsibilitySerializer(BaseSerializer):
     
     class Meta:
         model = general_models.Responsibility
-        fields = BaseSerializer.Meta.fields + ['experience', 'details']
+        fields = BaseSerializer.Meta.fields + ['experience', 'details', 'is_deleted']
         read_only_fields = fields     
 
 

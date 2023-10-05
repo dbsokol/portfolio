@@ -60,7 +60,8 @@ class ExperienceCard extends Card {
     this.decorate();
     this.attrs.card.appendTo(this.attrs.body);
     this.attrs.responsibilties = [];
-    for (var responsibility of this.props.data.responsibilties) {
+    const responsibilities = this.props.data.responsibilties?.filter(responsibility => !responsibility?.is_deleted)
+    for (var responsibility of responsibilities) {
       responsibility = new ResponsibilityCard({
         body : 'responsibility',
         data : responsibility,
@@ -79,25 +80,32 @@ class ExperienceCard extends Card {
     var row2 = $('<div>', {class : cls + ' row'}).appendTo(this.attrs.card);
     var start_date = moment(new Date(data.start_date)).format('MMMM, YYYY');
     var end_date = data.end_date ? moment(new Date(data.end_date)).format('MMMM, YYYY') : 'present';
-    $('<div>', {class : cls + ' key', text:data.title + ' at ' + data.institution}).appendTo(row1);
-    $('<div>', {class : cls + ' val', text:start_date + ' to ' + end_date}).appendTo(row1);
-    $('<div>', {class : cls + ' key', text:'Company Mission: ' + data.mission}).appendTo(row2);
-    var json_data = $.extend(true, {}, data);
-    for (var responsibility of json_data.responsibilties) {
-      responsibility.details = responsibility.details.slice(0,30) + '... <truncated>';
+    if (data?.institution === 'Freelancer') {
+      $('<div>', {class : cls + ' key', text: data.institution}).appendTo(row1);
+      $('<div>', {class : cls + ' val', text:start_date + ' to ' + end_date}).appendTo(row1);
     }
-    json_data = JSON.stringify(json_data, null, 2);
-    this.attrs.jsn = $('<pre>', {class : cls + ' json', text:json_data}).appendTo(this.attrs.card);
-    this.attrs.card.mouseleave(function(){
-      card.attrs.jsn.slideUp();
-      $('.resp-exp-' + card.props.data.id).show();
-    });
-    this.attrs.card.click(function(){
-      if ($(window).width() <= 768) return;
-      if ($('#toggle-animations').attr('state') == 'off') return;
-      card.attrs.jsn.slideDown();
-      $('.resp-exp-' + card.props.data.id).hide();
-    });
+    else {
+      $('<div>', {class : cls + ' key', text:data.title + ' at ' + data.institution}).appendTo(row1);
+      $('<div>', {class : cls + ' val', text:start_date + ' to ' + end_date}).appendTo(row1);
+      $('<div>', {class : cls + ' key', text:'Company Mission: ' + data.mission}).appendTo(row2);
+      var json_data = $.extend(true, {}, data);
+      const responsibilities = json_data.responsibilties?.filter(responsibility => !responsibility?.is_deleted)
+      for (var responsibility of responsibilities) {
+        responsibility.details = responsibility.details.slice(0,30) + '... <truncated>';
+      }
+      json_data = JSON.stringify(json_data, null, 2);
+      this.attrs.jsn = $('<pre>', {class : cls + ' json', text:json_data}).appendTo(this.attrs.card);
+      this.attrs.card.mouseleave(function(){
+        card.attrs.jsn.slideUp();
+        $('.resp-exp-' + card.props.data.id).show();
+      });
+      this.attrs.card.click(function(){
+        if ($(window).width() <= 768) return;
+        if ($('#toggle-animations').attr('state') == 'off') return;
+        card.attrs.jsn.slideDown();
+        $('.resp-exp-' + card.props.data.id).hide();
+      });
+    }
   }
 }
 

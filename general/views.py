@@ -46,47 +46,47 @@ class BaseViewSet(viewsets.ModelViewSet):
 
 class ContactViewSet(BaseViewSet):
     
-    queryset = general_models.Contact.objects.all().order_by('-id')
+    queryset = general_models.Contact.objects.filter(is_deleted=False).order_by('-id')
     serializer_class = general_serializers.ContactSerializer
     
     
 
 class EducationViewSet(BaseViewSet):
     
-    queryset = general_models.Education.objects.all().order_by('-created_at')
+    queryset = general_models.Education.objects.filter(is_deleted=False).order_by('-created_at')
     serializer_class = general_serializers.EducationSerializer
 
 
 
 class ExperienceViewSet(BaseViewSet):
     
-    queryset = general_models.Experience.objects.all().order_by('-created_at')
+    queryset = general_models.Experience.objects.filter(is_deleted=False).order_by('-created_at')
     serializer_class = general_serializers.ExperienceSerializer
 
 
 
 class ResponsibilityViewSet(BaseViewSet):
     
-    queryset = general_models.Responsibility.objects.all().order_by('-created_at')
+    queryset = general_models.Responsibility.objects.filter(is_deleted=False).order_by('-created_at')
     serializer_class = general_serializers.ResponsibilitySerializer
 
 
 
 class ProjectViewSet(BaseViewSet):
     
-    queryset = general_models.Project.objects.all().order_by('-created_at')
+    queryset = general_models.Project.objects.filter(is_deleted=False).order_by('-created_at')
     serializer_class = general_serializers.ProjectSerializer
 
 
 
 class SkillViewSet(BaseViewSet):
     
-    queryset = general_models.Skill.objects.all().order_by('start_date')
+    queryset = general_models.Skill.objects.filter(is_deleted=False).order_by('start_date')
     serializer_class = general_serializers.SkillSerializer
 
 
 
 class PublicationViewSet(BaseViewSet):
     
-    queryset = general_models.Publication.objects.all().order_by('published_date')
+    queryset = general_models.Publication.objects.filter(is_deleted=False).order_by('published_date')
     serializer_class = general_serializers.PublicationSerializer

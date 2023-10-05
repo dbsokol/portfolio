@@ -7,7 +7,7 @@ from general import models
 
 class BaseAdmin(admin.ModelAdmin):
     
-    list_display = ['id', 'created_at', 'last_updated_at']
+    list_display = ['id', 'is_deleted',  'created_at', 'updated_at']
 
 
 
